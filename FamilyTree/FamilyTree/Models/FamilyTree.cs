@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FamilyTree.Models
+﻿namespace FamilyTree.Models
 {
     public class FamilyTree
     {
@@ -13,6 +7,21 @@ namespace FamilyTree.Models
         public FamilyTree()
         {
             members = [];
+        }
+
+        public List<Person> Find(string date, string id, string name)
+        {
+            List<Person> finded = [];
+            foreach (var person in members)
+            {
+                string str = person.ToString()!.ToLower();
+                if (str.Contains(date.ToLower()) && str.Contains(id.ToLower()) && str.Contains(name.ToLower()))
+                {
+                    Console.WriteLine(person);
+                    finded.Add(person);
+                }
+            }
+            return finded;
         }
 
         public void AddMember(Person person)

@@ -14,3 +14,4 @@ C:\Users\Dani\source\repos\FamilyTree\FamilyTree\FamilyTree\obj\Debug\net8.0-win
 C:\Users\Dani\source\repos\FamilyTree\FamilyTree\FamilyTree\obj\Debug\net8.0-windows\FamilyTree.pdb
 C:\Users\Dani\source\repos\FamilyTree\FamilyTree\FamilyTree\obj\Debug\net8.0-windows\FamilyTree.genruntimeconfig.cache
 C:\Users\Dani\source\repos\FamilyTree\FamilyTree\FamilyTree\obj\Debug\net8.0-windows\ref\FamilyTree.dll
+C:\Users\Dani\source\repos\FamilyTree\FamilyTree\FamilyTree\obj\Debug\net8.0-windows\FamilyTree.sourcelink.json

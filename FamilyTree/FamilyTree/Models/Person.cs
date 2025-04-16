@@ -25,6 +25,11 @@
             Children = [];
         }
 
+        public override string ToString()
+        {
+            return $"ID: {Id}, {FirstName} {MiddleName} {LastName}, Born: {DateOfBirth.Year}, Sex: {Sex}, Place: {PlaceOfBirth}, Address: {Address}";
+        }
+
         public void GetPassportData()
         {
             Console.WriteLine($"ID: {Id};" +

@@ -30,10 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             FindButton = new Button();
-            IdTextBox = new TextBox();
             panel1 = new Panel();
+            DateLabel = new Label();
+            DateTextBox = new TextBox();
+            NameLabel = new Label();
+            NameTextBox = new TextBox();
             IdLabel = new Label();
-            listBox1 = new ListBox();
+            IdTextBox = new TextBox();
+            SearchResults = new ListBox();
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -64,10 +68,7 @@
             поискToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
             опрограммеToolStripMenuItem = new ToolStripMenuItem();
-            NameTextBox = new TextBox();
-            NameLabel = new Label();
-            DateLabel = new Label();
-            DateTextBox = new TextBox();
+            NothingLabel = new Label();
             panel1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
@@ -83,15 +84,7 @@
             FindButton.TabIndex = 0;
             FindButton.Text = "Find";
             FindButton.UseVisualStyleBackColor = true;
-            // 
-            // IdTextBox
-            // 
-            IdTextBox.BorderStyle = BorderStyle.FixedSingle;
-            IdTextBox.Cursor = Cursors.IBeam;
-            IdTextBox.Location = new Point(25, 43);
-            IdTextBox.Name = "IdTextBox";
-            IdTextBox.Size = new Size(137, 27);
-            IdTextBox.TabIndex = 1;
+            FindButton.Click += FindButton_Click;
             // 
             // panel1
             // 
@@ -109,6 +102,39 @@
             panel1.Size = new Size(550, 164);
             panel1.TabIndex = 2;
             // 
+            // DateLabel
+            // 
+            DateLabel.AutoSize = true;
+            DateLabel.Location = new Point(198, 21);
+            DateLabel.Name = "DateLabel";
+            DateLabel.Size = new Size(94, 20);
+            DateLabel.TabIndex = 6;
+            DateLabel.Text = "Date of birth";
+            // 
+            // DateTextBox
+            // 
+            DateTextBox.Location = new Point(198, 44);
+            DateTextBox.Name = "DateTextBox";
+            DateTextBox.Size = new Size(223, 27);
+            DateTextBox.TabIndex = 5;
+            // 
+            // NameLabel
+            // 
+            NameLabel.AutoSize = true;
+            NameLabel.Location = new Point(25, 87);
+            NameLabel.Name = "NameLabel";
+            NameLabel.Size = new Size(150, 20);
+            NameLabel.TabIndex = 4;
+            NameLabel.Text = "Last name/First name";
+            NameLabel.Click += label1_Click;
+            // 
+            // NameTextBox
+            // 
+            NameTextBox.Location = new Point(25, 110);
+            NameTextBox.Name = "NameTextBox";
+            NameTextBox.Size = new Size(396, 27);
+            NameTextBox.TabIndex = 3;
+            // 
             // IdLabel
             // 
             IdLabel.AutoSize = true;
@@ -119,14 +145,23 @@
             IdLabel.Text = "ID";
             IdLabel.Click += PersonLabel_Click;
             // 
-            // listBox1
+            // IdTextBox
             // 
-            listBox1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            listBox1.FormattingEnabled = true;
-            listBox1.Location = new Point(13, 221);
-            listBox1.Name = "listBox1";
-            listBox1.Size = new Size(620, 164);
-            listBox1.TabIndex = 3;
+            IdTextBox.BorderStyle = BorderStyle.FixedSingle;
+            IdTextBox.Cursor = Cursors.IBeam;
+            IdTextBox.Location = new Point(25, 43);
+            IdTextBox.Name = "IdTextBox";
+            IdTextBox.Size = new Size(137, 27);
+            IdTextBox.TabIndex = 1;
+            // 
+            // SearchResults
+            // 
+            SearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SearchResults.FormattingEnabled = true;
+            SearchResults.Location = new Point(13, 221);
+            SearchResults.Name = "SearchResults";
+            SearchResults.Size = new Size(620, 164);
+            SearchResults.TabIndex = 3;
             // 
             // menuStrip1
             // 
@@ -335,45 +370,22 @@
             опрограммеToolStripMenuItem.Size = new Size(198, 26);
             опрограммеToolStripMenuItem.Text = "&О программе…";
             // 
-            // NameTextBox
+            // NothingLabel
             // 
-            NameTextBox.Location = new Point(25, 110);
-            NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(396, 27);
-            NameTextBox.TabIndex = 3;
-            // 
-            // NameLabel
-            // 
-            NameLabel.AutoSize = true;
-            NameLabel.Location = new Point(25, 87);
-            NameLabel.Name = "NameLabel";
-            NameLabel.Size = new Size(150, 20);
-            NameLabel.TabIndex = 4;
-            NameLabel.Text = "Last name/First name";
-            NameLabel.Click += label1_Click;
-            // 
-            // DateLabel
-            // 
-            DateLabel.AutoSize = true;
-            DateLabel.Location = new Point(198, 21);
-            DateLabel.Name = "DateLabel";
-            DateLabel.Size = new Size(94, 20);
-            DateLabel.TabIndex = 6;
-            DateLabel.Text = "Date of birth";
-            // 
-            // DateTextBox
-            // 
-            DateTextBox.Location = new Point(198, 44);
-            DateTextBox.Name = "DateTextBox";
-            DateTextBox.Size = new Size(223, 27);
-            DateTextBox.TabIndex = 5;
+            NothingLabel.AutoSize = true;
+            NothingLabel.Location = new Point(231, 233);
+            NothingLabel.Name = "NothingLabel";
+            NothingLabel.Size = new Size(135, 20);
+            NothingLabel.TabIndex = 5;
+            NothingLabel.Text = "Nothing was found";
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(646, 433);
-            Controls.Add(listBox1);
+            Controls.Add(NothingLabel);
+            Controls.Add(SearchResults);
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
             MinimumSize = new Size(600, 450);
@@ -390,10 +402,8 @@
         #endregion
 
         private Button FindButton;
-        private TextBox IdTextBox;
         private Panel panel1;
-        private Label IdLabel;
-        private ListBox listBox1;
+        private ListBox SearchResults;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem файлToolStripMenuItem;
         private ToolStripMenuItem создатьToolStripMenuItem;
@@ -428,5 +438,8 @@
         private TextBox NameTextBox;
         private Label DateLabel;
         private TextBox DateTextBox;
+        private Label IdLabel;
+        private TextBox IdTextBox;
+        private Label NothingLabel;
     }
 }

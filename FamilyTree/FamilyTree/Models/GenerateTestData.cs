@@ -2,7 +2,6 @@
 {
     public class GenerateTestData
     {
-
         private static string[] MaleFirstNames = { "Ivan", "Olexandr", "Petro", "Mikhailo", "Andriy", "Serhiy" };
         private static string[] FemaleFirstNames = { "Maria", "Olga", "Anna", "Yulia", "Natalia", "Olena" };
         private static string[] LastNames = { "Petrenko", "Kovalenko", "Melnyk", "Tkachenko", "Shevchenko" };
@@ -13,13 +12,13 @@
 
         private static Random random = new Random();
 
-        public static Person GeneratePerson(int id)
+        public static Person GeneratePerson()
         {
             Gender gender = random.Next(2) == 1 ? Gender.Male : Gender.Female;
 
             var person = new Person
             {
-                Id = id,
+                Id = random.Next(99999),
                 Sex = gender,
                 FirstName = gender == Gender.Male ? MaleFirstNames[random.Next(MaleFirstNames.Length)] : FemaleFirstNames[random.Next(FemaleFirstNames.Length)],
                 LastName = LastNames[random.Next(LastNames.Length)],
@@ -39,7 +38,7 @@
 
             for (int i = 1; i <= personCount; i++)
             {
-                var person = GeneratePerson(i);
+                var person = GeneratePerson();
                 persons.Add(person);
                 tree.AddMember(person);
             }
