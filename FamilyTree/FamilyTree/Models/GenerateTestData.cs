@@ -10,15 +10,14 @@
         private static string[] Cities = { "Kyiv", "Lviv", "Odesa", "Kharkiv", "Dnipro" };
         private static string[] Streets = { "Shevchenka", "Kyivska", "Tsentralna", "Kurbasa", "Kadenyka" };
 
-        private static Random random = new Random();
-
+        private static Random random = new();
+        
         public static Person GeneratePerson()
         {
             Gender gender = random.Next(2) == 1 ? Gender.Male : Gender.Female;
 
             var person = new Person
             {
-                Id = random.Next(99999),
                 Sex = gender,
                 FirstName = gender == Gender.Male ? MaleFirstNames[random.Next(MaleFirstNames.Length)] : FemaleFirstNames[random.Next(FemaleFirstNames.Length)],
                 LastName = LastNames[random.Next(LastNames.Length)],

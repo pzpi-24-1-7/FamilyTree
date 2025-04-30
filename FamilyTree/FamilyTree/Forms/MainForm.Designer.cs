@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             FindButton = new Button();
             panel1 = new Panel();
@@ -38,6 +39,7 @@
             IdLabel = new Label();
             IdTextBox = new TextBox();
             SearchResults = new ListBox();
+            personBindingSource = new BindingSource(components);
             menuStrip1 = new MenuStrip();
             файлToolStripMenuItem = new ToolStripMenuItem();
             создатьToolStripMenuItem = new ToolStripMenuItem();
@@ -50,18 +52,10 @@
             предварительныйпросмотрToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator2 = new ToolStripSeparator();
             выходToolStripMenuItem = new ToolStripMenuItem();
-            изменитьToolStripMenuItem = new ToolStripMenuItem();
-            отменитьToolStripMenuItem = new ToolStripMenuItem();
-            повторитьToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator3 = new ToolStripSeparator();
-            вырезатьToolStripMenuItem = new ToolStripMenuItem();
-            копироватьToolStripMenuItem = new ToolStripMenuItem();
-            вставитьToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator4 = new ToolStripSeparator();
-            выбратьвсеToolStripMenuItem = new ToolStripMenuItem();
-            инструментыToolStripMenuItem = new ToolStripMenuItem();
-            настройкиToolStripMenuItem = new ToolStripMenuItem();
-            параметрыToolStripMenuItem = new ToolStripMenuItem();
+            personToolStripMenuItem = new ToolStripMenuItem();
+            newToolStripMenuItem = new ToolStripMenuItem();
+            editToolStripMenuItem = new ToolStripMenuItem();
+            deleteToolStripMenuItem = new ToolStripMenuItem();
             справкаToolStripMenuItem = new ToolStripMenuItem();
             содержимоеToolStripMenuItem = new ToolStripMenuItem();
             индексToolStripMenuItem = new ToolStripMenuItem();
@@ -69,7 +63,9 @@
             toolStripSeparator5 = new ToolStripSeparator();
             опрограммеToolStripMenuItem = new ToolStripMenuItem();
             NothingLabel = new Label();
+            LoadButton = new Button();
             panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -97,7 +93,7 @@
             panel1.Controls.Add(IdLabel);
             panel1.Controls.Add(IdTextBox);
             panel1.Controls.Add(FindButton);
-            panel1.Location = new Point(48, 51);
+            panel1.Location = new Point(95, 51);
             panel1.Name = "panel1";
             panel1.Size = new Size(550, 164);
             panel1.TabIndex = 2;
@@ -126,7 +122,6 @@
             NameLabel.Size = new Size(150, 20);
             NameLabel.TabIndex = 4;
             NameLabel.Text = "Last name/First name";
-            NameLabel.Click += label1_Click;
             // 
             // NameTextBox
             // 
@@ -143,7 +138,6 @@
             IdLabel.Size = new Size(24, 20);
             IdLabel.TabIndex = 2;
             IdLabel.Text = "ID";
-            IdLabel.Click += PersonLabel_Click;
             // 
             // IdTextBox
             // 
@@ -157,19 +151,26 @@
             // SearchResults
             // 
             SearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SearchResults.DataSource = personBindingSource;
+            SearchResults.DisplayMember = "FirstName";
             SearchResults.FormattingEnabled = true;
             SearchResults.Location = new Point(13, 221);
             SearchResults.Name = "SearchResults";
-            SearchResults.Size = new Size(620, 164);
+            SearchResults.Size = new Size(714, 164);
             SearchResults.TabIndex = 3;
+            SearchResults.ValueMember = "Id";
+            // 
+            // personBindingSource
+            // 
+            personBindingSource.DataSource = typeof(Models.Person);
             // 
             // menuStrip1
             // 
             menuStrip1.ImageScalingSize = new Size(20, 20);
-            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, изменитьToolStripMenuItem, инструментыToolStripMenuItem, справкаToolStripMenuItem });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, personToolStripMenuItem, справкаToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(646, 28);
+            menuStrip1.Size = new Size(740, 28);
             menuStrip1.TabIndex = 4;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -250,89 +251,34 @@
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.Size = new Size(294, 26);
             выходToolStripMenuItem.Text = "Вы&ход";
+            выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
             // 
-            // изменитьToolStripMenuItem
+            // personToolStripMenuItem
             // 
-            изменитьToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { отменитьToolStripMenuItem, повторитьToolStripMenuItem, toolStripSeparator3, вырезатьToolStripMenuItem, копироватьToolStripMenuItem, вставитьToolStripMenuItem, toolStripSeparator4, выбратьвсеToolStripMenuItem });
-            изменитьToolStripMenuItem.Name = "изменитьToolStripMenuItem";
-            изменитьToolStripMenuItem.Size = new Size(92, 24);
-            изменитьToolStripMenuItem.Text = "&Изменить";
+            personToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, editToolStripMenuItem, deleteToolStripMenuItem });
+            personToolStripMenuItem.Name = "personToolStripMenuItem";
+            personToolStripMenuItem.Size = new Size(66, 24);
+            personToolStripMenuItem.Text = "Person";
             // 
-            // отменитьToolStripMenuItem
+            // newToolStripMenuItem
             // 
-            отменитьToolStripMenuItem.Name = "отменитьToolStripMenuItem";
-            отменитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Z;
-            отменитьToolStripMenuItem.Size = new Size(227, 26);
-            отменитьToolStripMenuItem.Text = "&Отменить";
+            newToolStripMenuItem.Name = "newToolStripMenuItem";
+            newToolStripMenuItem.Size = new Size(136, 26);
+            newToolStripMenuItem.Text = "New";
+            newToolStripMenuItem.Click += newToolStripMenuItem_Click;
             // 
-            // повторитьToolStripMenuItem
+            // editToolStripMenuItem
             // 
-            повторитьToolStripMenuItem.Name = "повторитьToolStripMenuItem";
-            повторитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.Y;
-            повторитьToolStripMenuItem.Size = new Size(227, 26);
-            повторитьToolStripMenuItem.Text = "&Повторить";
+            editToolStripMenuItem.Name = "editToolStripMenuItem";
+            editToolStripMenuItem.Size = new Size(136, 26);
+            editToolStripMenuItem.Text = "Edit";
+            editToolStripMenuItem.Click += editToolStripMenuItem_Click;
             // 
-            // toolStripSeparator3
+            // deleteToolStripMenuItem
             // 
-            toolStripSeparator3.Name = "toolStripSeparator3";
-            toolStripSeparator3.Size = new Size(224, 6);
-            // 
-            // вырезатьToolStripMenuItem
-            // 
-            вырезатьToolStripMenuItem.Image = (Image)resources.GetObject("вырезатьToolStripMenuItem.Image");
-            вырезатьToolStripMenuItem.ImageTransparentColor = Color.Magenta;
-            вырезатьToolStripMenuItem.Name = "вырезатьToolStripMenuItem";
-            вырезатьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.X;
-            вырезатьToolStripMenuItem.Size = new Size(227, 26);
-            вырезатьToolStripMenuItem.Text = "В&ырезать";
-            // 
-            // копироватьToolStripMenuItem
-            // 
-            копироватьToolStripMenuItem.Image = (Image)resources.GetObject("копироватьToolStripMenuItem.Image");
-            копироватьToolStripMenuItem.ImageTransparentColor = Color.Magenta;
-            копироватьToolStripMenuItem.Name = "копироватьToolStripMenuItem";
-            копироватьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.C;
-            копироватьToolStripMenuItem.Size = new Size(227, 26);
-            копироватьToolStripMenuItem.Text = "&Копировать";
-            // 
-            // вставитьToolStripMenuItem
-            // 
-            вставитьToolStripMenuItem.Image = (Image)resources.GetObject("вставитьToolStripMenuItem.Image");
-            вставитьToolStripMenuItem.ImageTransparentColor = Color.Magenta;
-            вставитьToolStripMenuItem.Name = "вставитьToolStripMenuItem";
-            вставитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.V;
-            вставитьToolStripMenuItem.Size = new Size(227, 26);
-            вставитьToolStripMenuItem.Text = "&Вставить";
-            // 
-            // toolStripSeparator4
-            // 
-            toolStripSeparator4.Name = "toolStripSeparator4";
-            toolStripSeparator4.Size = new Size(224, 6);
-            // 
-            // выбратьвсеToolStripMenuItem
-            // 
-            выбратьвсеToolStripMenuItem.Name = "выбратьвсеToolStripMenuItem";
-            выбратьвсеToolStripMenuItem.Size = new Size(227, 26);
-            выбратьвсеToolStripMenuItem.Text = "Выбрать &все";
-            // 
-            // инструментыToolStripMenuItem
-            // 
-            инструментыToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { настройкиToolStripMenuItem, параметрыToolStripMenuItem });
-            инструментыToolStripMenuItem.Name = "инструментыToolStripMenuItem";
-            инструментыToolStripMenuItem.Size = new Size(117, 24);
-            инструментыToolStripMenuItem.Text = "&Инструменты";
-            // 
-            // настройкиToolStripMenuItem
-            // 
-            настройкиToolStripMenuItem.Name = "настройкиToolStripMenuItem";
-            настройкиToolStripMenuItem.Size = new Size(173, 26);
-            настройкиToolStripMenuItem.Text = "&Настройки";
-            // 
-            // параметрыToolStripMenuItem
-            // 
-            параметрыToolStripMenuItem.Name = "параметрыToolStripMenuItem";
-            параметрыToolStripMenuItem.Size = new Size(173, 26);
-            параметрыToolStripMenuItem.Text = "&Параметры";
+            deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            deleteToolStripMenuItem.Size = new Size(136, 26);
+            deleteToolStripMenuItem.Text = "Delete";
             // 
             // справкаToolStripMenuItem
             // 
@@ -373,17 +319,28 @@
             // NothingLabel
             // 
             NothingLabel.AutoSize = true;
-            NothingLabel.Location = new Point(231, 233);
+            NothingLabel.Location = new Point(276, 231);
             NothingLabel.Name = "NothingLabel";
             NothingLabel.Size = new Size(135, 20);
             NothingLabel.TabIndex = 5;
             NothingLabel.Text = "Nothing was found";
             // 
+            // LoadButton
+            // 
+            LoadButton.Location = new Point(644, 405);
+            LoadButton.Name = "LoadButton";
+            LoadButton.Size = new Size(84, 25);
+            LoadButton.TabIndex = 6;
+            LoadButton.Text = "Load";
+            LoadButton.UseVisualStyleBackColor = true;
+            LoadButton.Click += LoadButton_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(646, 433);
+            ClientSize = new Size(740, 442);
+            Controls.Add(LoadButton);
             Controls.Add(NothingLabel);
             Controls.Add(SearchResults);
             Controls.Add(panel1);
@@ -391,8 +348,10 @@
             MinimumSize = new Size(600, 450);
             Name = "MainForm";
             Text = "MainForm";
+            FormClosing += MainForm_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)personBindingSource).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -416,18 +375,6 @@
         private ToolStripMenuItem предварительныйпросмотрToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator2;
         private ToolStripMenuItem выходToolStripMenuItem;
-        private ToolStripMenuItem изменитьToolStripMenuItem;
-        private ToolStripMenuItem отменитьToolStripMenuItem;
-        private ToolStripMenuItem повторитьToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem вырезатьToolStripMenuItem;
-        private ToolStripMenuItem копироватьToolStripMenuItem;
-        private ToolStripMenuItem вставитьToolStripMenuItem;
-        private ToolStripSeparator toolStripSeparator4;
-        private ToolStripMenuItem выбратьвсеToolStripMenuItem;
-        private ToolStripMenuItem инструментыToolStripMenuItem;
-        private ToolStripMenuItem настройкиToolStripMenuItem;
-        private ToolStripMenuItem параметрыToolStripMenuItem;
         private ToolStripMenuItem справкаToolStripMenuItem;
         private ToolStripMenuItem содержимоеToolStripMenuItem;
         private ToolStripMenuItem индексToolStripMenuItem;
@@ -441,5 +388,11 @@
         private Label IdLabel;
         private TextBox IdTextBox;
         private Label NothingLabel;
+        private BindingSource personBindingSource;
+        private ToolStripMenuItem personToolStripMenuItem;
+        private ToolStripMenuItem newToolStripMenuItem;
+        private ToolStripMenuItem editToolStripMenuItem;
+        private ToolStripMenuItem deleteToolStripMenuItem;
+        private Button LoadButton;
     }
 }

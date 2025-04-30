@@ -1,4 +1,7 @@
-﻿namespace FamilyTree.Models
+﻿using System.Text.Json.Serialization;
+using System.Text.Json;
+
+namespace FamilyTree.Models
 {
     public class FamilyTree
     {
@@ -8,7 +11,44 @@
         {
             members = [];
         }
+        public void SerializeData(string path)
+        {
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve, 
+                WriteIndented = true 
+            };
 
+            string json = JsonSerializer.Serialize(members, options);
+            File.WriteAllText(path, json);
+        }
+
+        
+        public void DeserializeData(string path)
+        {            
+            if (!File.Exists(path))
+            {
+                return; 
+            }
+
+            
+            string json = File.ReadAllText(path);
+            
+            var options = new JsonSerializerOptions
+            {
+                ReferenceHandler = ReferenceHandler.Preserve
+            };
+
+            // Десериализуем JSON в List<Person>
+            var deserializedMembers = JsonSerializer.Deserialize<List<Person>>(json, options);
+
+            
+            members.Clear();
+            if (deserializedMembers != null)
+            {
+                members.AddRange(deserializedMembers);
+            }
+        }
         public List<Person> Find(string date, string id, string name)
         {
             List<Person> finded = [];
@@ -26,10 +66,15 @@
 
         public void AddMember(Person person)
         {
-            if (person != null && !members.Contains(person))
-            {
+            
+                person.Id = GenerateId();
                 members.Add(person);
-            }
+            
+        }
+
+        private int GenerateId()
+        {
+            return members.Count == 0 ? 1 :members.Select(m => m.Id).Max() + 1;
         }
 
         public Person GetMemberById(int id)

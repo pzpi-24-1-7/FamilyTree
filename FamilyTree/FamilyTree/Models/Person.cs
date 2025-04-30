@@ -1,4 +1,6 @@
-﻿namespace FamilyTree.Models
+﻿using System.Text.Json.Serialization;
+
+namespace FamilyTree.Models
 {
     public enum Gender
     {
@@ -15,10 +17,12 @@
         public DateTime DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; } = "No data yet";
         public string Address { get; set; } = "No data yet";
-
+        [JsonInclude]
         public Person? Father { get; set; }
+        [JsonInclude]
         public Person? Mother { get; set; }
-        public List<Person> Children { get; set; }
+        [JsonInclude]
+        public List<Person>? Children { get; set; }
 
         public Person()
         {
