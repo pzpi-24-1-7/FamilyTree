@@ -1,5 +1,5 @@
-﻿using System.Text.Json.Serialization;
-using System.Text.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FamilyTree.Models
 {
@@ -11,38 +11,32 @@ namespace FamilyTree.Models
         {
             members = [];
         }
+
         public void SerializeData(string path)
         {
             var options = new JsonSerializerOptions
             {
-                ReferenceHandler = ReferenceHandler.Preserve, 
-                WriteIndented = true 
+                ReferenceHandler = ReferenceHandler.Preserve,
+                WriteIndented = true
             };
 
             string json = JsonSerializer.Serialize(members, options);
             File.WriteAllText(path, json);
         }
 
-        
-        public void DeserializeData(string path)
-        {            
-            if (!File.Exists(path))
-            {
-                return; 
-            }
 
-            
+        public void DeserializeData(string path)
+        {
+            if (!File.Exists(path)) return;
+
             string json = File.ReadAllText(path);
-            
             var options = new JsonSerializerOptions
             {
                 ReferenceHandler = ReferenceHandler.Preserve
             };
 
-            // Десериализуем JSON в List<Person>
             var deserializedMembers = JsonSerializer.Deserialize<List<Person>>(json, options);
 
-            
             members.Clear();
             if (deserializedMembers != null)
             {
@@ -51,80 +45,27 @@ namespace FamilyTree.Models
         }
         public List<Person> Find(string date, string id, string name)
         {
-            List<Person> finded = [];
-            foreach (var person in members)
-            {
-                string str = person.ToString()!.ToLower();
-                if (str.Contains(date.ToLower()) && str.Contains(id.ToLower()) && str.Contains(name.ToLower()))
-                {
-                    Console.WriteLine(person);
-                    finded.Add(person);
-                }
-            }
-            return finded;
+            return members.Where(person =>
+                person.ToString().ToLower().Contains(date.ToLower()) &&
+                person.ToString().ToLower().Contains(id.ToLower()) &&
+                person.ToString().ToLower().Contains(name.ToLower())
+            ).ToList();
         }
 
         public void AddMember(Person person)
         {
-            
-                person.Id = GenerateId();
-                members.Add(person);
-            
+            person.Id = GenerateId();
+            members.Add(person);
         }
 
         private int GenerateId()
         {
-            return members.Count == 0 ? 1 :members.Select(m => m.Id).Max() + 1;
+            return members.Count == 0 ? 1 : members.Max(m => m.Id) + 1;
         }
 
-        public Person GetMemberById(int id)
+        public Person? GetMemberById(int id)
         {
             return members.FirstOrDefault(p => p.Id == id);
-        }
-
-        public void GetDescendants(Person person)
-        {
-            void PrintDescendants(Person p, int level = 0)
-            {
-                if (p == null) return;
-
-                foreach (var child in p.Children)
-                {
-                    Console.WriteLine($"{new string(' ', level)}{child.FirstName} {child.LastName}");
-                    PrintDescendants(child, level + 2);
-                }
-            }
-
-            if (person != null)
-            {
-                Console.WriteLine($"\n{person.FirstName} {person.LastName} descedants:");
-                PrintDescendants(person);
-            }
-        }
-
-        public void GetAncestors(Person person)
-        {
-            void PrintAncestors(Person p, int level = 0)
-            {
-                if (p == null) return;
-
-                if (p.Father != null)
-                {
-                    Console.WriteLine($"{new string(' ', level)}{p.Father.FirstName} {p.Father.LastName}");
-                    PrintAncestors(p.Father, level + 2);
-                }
-                if (p.Mother != null)
-                {
-                    Console.WriteLine($"{new string(' ', level)}{p.Mother.FirstName} {p.Mother.LastName}");
-                    PrintAncestors(p.Mother, level + 2);
-                }
-            }
-
-            if (person != null)
-            {
-                Console.WriteLine($"\n{person.FirstName} {person.LastName} ancestors:");
-                PrintAncestors(person);
-            }
         }
 
         public void PrintFullTree()
@@ -140,19 +81,58 @@ namespace FamilyTree.Models
             Console.WriteLine("Family tree:");
             foreach (var root in roots)
             {
-                PrintSubTree(root, 0);
+                PrintFamily(root, 0);
             }
         }
 
-        private void PrintSubTree(Person person, int level = 0)
+        private void PrintFamily(Person person, int level)
         {
             if (person == null) return;
 
-            Console.WriteLine($"{new string(' ', level)}{person.FirstName} {person.LastName} ({person.DateOfBirth.Year})");
+            string indent = new string(' ', level * 4);
+            Console.WriteLine($"{indent}- {person.FirstName} {person.LastName} ({person.DateOfBirth.Year})");
 
-            foreach (var child in person.Children)
+            var spouses = members.Where(p =>
+                p != person &&
+                p.Children.Intersect(person.Children).Any() &&
+                p.Sex != person.Sex).ToList();
+
+            foreach (var spouse in spouses)
             {
-                PrintSubTree(child, level + 2);
+                Console.WriteLine($"{indent}  (Spouse: {spouse.FirstName} {spouse.LastName})");
+            }
+
+            foreach (var child in person.Children.OrderBy(c => c.DateOfBirth))
+            {
+                PrintFamily(child, level + 1);
+            }
+        }
+
+        public TreeNode BuildAncestorTree(Person person)
+        {
+            if (person == null) return null;
+
+            TreeNode rootNode = new($"{person.FirstName} {person.LastName} ({person.DateOfBirth:yyyy})");
+
+            AddAncestorsRecursive(person, rootNode);
+
+            return rootNode;
+        }
+
+        private void AddAncestorsRecursive(Person person, TreeNode node)
+        {
+            if (person.Father != null)
+            {
+                TreeNode fatherNode = new($"Father: {person.Father.FirstName} {person.Father.LastName} ({person.Father.DateOfBirth:yyyy})");
+                node.Nodes.Add(fatherNode);
+                AddAncestorsRecursive(person.Father, fatherNode);
+            }
+
+            if (person.Mother != null)
+            {
+                TreeNode motherNode = new($"Mother: {person.Mother.FirstName} {person.Mother.LastName} ({person.Mother.DateOfBirth:yyyy})");
+                node.Nodes.Add(motherNode);
+                AddAncestorsRecursive(person.Mother, motherNode);
             }
         }
     }

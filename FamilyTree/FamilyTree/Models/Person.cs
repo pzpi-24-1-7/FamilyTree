@@ -48,28 +48,31 @@ namespace FamilyTree.Models
 
         public void AddChild(Person child)
         {
-            if (child == null || this == child || Children.Contains(child))
+            if (child == null || child == this || Children.Contains(child))
                 return;
 
             Children.Add(child);
 
-            if (Sex == Gender.Male)
+            if (Sex == Gender.Male && child.Father != this)
                 child.Father = this;
-            else if (Sex == Gender.Female)
+
+            if (Sex == Gender.Female && child.Mother != this)
                 child.Mother = this;
         }
 
         public void AddParent(Person parent)
         {
-            if (parent == null || this == parent || parent.Children.Contains(this))
+            if (parent == null || parent == this)
                 return;
 
-            if (parent.Sex == Gender.Male)
+            if (parent.Sex == Gender.Male && Father != parent)
                 Father = parent;
-            else if (parent.Sex == Gender.Female)
+
+            if (parent.Sex == Gender.Female && Mother != parent)
                 Mother = parent;
 
-            parent.Children.Add(this);
+            if (!parent.Children.Contains(this))
+                parent.Children.Add(this);
         }
     }
 }

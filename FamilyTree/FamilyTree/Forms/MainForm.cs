@@ -5,11 +5,10 @@ namespace FamilyTree
 {
     public partial class MainForm : Form
     {
-        private FamilyTree.Models.FamilyTree familyTree;
+        private FamilyTree.Models.FamilyTree familyTree = null;
         public MainForm()
         {
             InitializeComponent();
-            familyTree = GenerateTestData.GenerateFamilyTree(10);
         }
 
         private void FindButton_Click(object sender, EventArgs e)
@@ -18,16 +17,17 @@ namespace FamilyTree
             string id = IdTextBox.Text.Trim();
             string name = NameTextBox.Text.Trim();
 
+            if (familyTree == null)
+            {
+                MessageBox.Show("Please load/generate the family tree first.");
+                return;
+            }
+
             List<Person> result = familyTree.Find(date, id, name);
 
             NothingLabel.Visible = result.Count == 0;
 
             personBindingSource.DataSource = result;
-        }
-
-        private void ‚˚ıÓ‰ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
         }
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -46,6 +46,11 @@ namespace FamilyTree
             }
         }
 
+        private void ‚˚ıÓ‰ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
         private void newToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using NewPersonForm form = new();
@@ -59,6 +64,7 @@ namespace FamilyTree
         private void editToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Person person = SearchResults.SelectedItem as Person;
+
             if (person == null)
             {
                 MessageBox.Show("Select a person");
@@ -74,6 +80,7 @@ namespace FamilyTree
         {
             try
             {
+                familyTree = new FamilyTree.Models.FamilyTree();
                 familyTree.DeserializeData("familytree.json");
                 MessageBox.Show("Family tree loaded successfully!");
                 familyTree.PrintFullTree();
@@ -82,6 +89,46 @@ namespace FamilyTree
             {
                 MessageBox.Show($"Error loading family tree: {ex.Message}");
             }
+        }
+
+        private void GetTree_Click(object sender, EventArgs e)
+        {
+            Person selectedPerson = SearchResults.SelectedItem as Person;
+
+            if (selectedPerson == null)
+            {
+                MessageBox.Show("Please select a person from the list.");
+                return;
+            }
+
+            TreeNode treeNode = familyTree.BuildAncestorTree(selectedPerson);
+
+            FamilyTreeView.Nodes.Clear();
+            if (treeNode != null)
+                FamilyTreeView.Nodes.Add(treeNode);
+
+            FamilyTreeView.ExpandAll();
+        }
+
+
+        private void GenerateTestData_Click(object sender, EventArgs e)
+        {
+            familyTree = Models.GenerateTestData.GenerateFamilyTreeWithAncestors();
+            Person rootPerson = familyTree.GetMemberById(1);
+            if (rootPerson == null)
+            {
+                MessageBox.Show("Root person with ID 1 not found.");
+                return;
+            }
+
+            TreeNode treeNode = familyTree.BuildAncestorTree(rootPerson);
+
+            FamilyTreeView.Nodes.Clear();
+            if (treeNode != null)
+                FamilyTreeView.Nodes.Add(treeNode);
+
+            FamilyTreeView.ExpandAll();
+            familyTree.PrintFullTree();
         }
     }
 }

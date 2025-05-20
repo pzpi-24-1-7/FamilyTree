@@ -64,6 +64,9 @@
             опрограммеToolStripMenuItem = new ToolStripMenuItem();
             NothingLabel = new Label();
             LoadButton = new Button();
+            FamilyTreeView = new TreeView();
+            GetTree = new Button();
+            GenerateTestData = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             menuStrip1.SuspendLayout();
@@ -84,7 +87,6 @@
             // 
             // panel1
             // 
-            panel1.Anchor = AnchorStyles.Top;
             panel1.BorderStyle = BorderStyle.FixedSingle;
             panel1.Controls.Add(DateLabel);
             panel1.Controls.Add(DateTextBox);
@@ -93,9 +95,9 @@
             panel1.Controls.Add(IdLabel);
             panel1.Controls.Add(IdTextBox);
             panel1.Controls.Add(FindButton);
-            panel1.Location = new Point(95, 51);
+            panel1.Location = new Point(16, 51);
             panel1.Name = "panel1";
-            panel1.Size = new Size(550, 164);
+            panel1.Size = new Size(550, 157);
             panel1.TabIndex = 2;
             // 
             // DateLabel
@@ -150,13 +152,13 @@
             // 
             // SearchResults
             // 
-            SearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            SearchResults.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left;
             SearchResults.DataSource = personBindingSource;
             SearchResults.DisplayMember = "FirstName";
             SearchResults.FormattingEnabled = true;
             SearchResults.Location = new Point(13, 221);
             SearchResults.Name = "SearchResults";
-            SearchResults.Size = new Size(714, 164);
+            SearchResults.Size = new Size(556, 304);
             SearchResults.TabIndex = 3;
             SearchResults.ValueMember = "Id";
             // 
@@ -170,7 +172,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { файлToolStripMenuItem, personToolStripMenuItem, справкаToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(740, 28);
+            menuStrip1.Size = new Size(1082, 28);
             menuStrip1.TabIndex = 4;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -319,33 +321,72 @@
             // NothingLabel
             // 
             NothingLabel.AutoSize = true;
-            NothingLabel.Location = new Point(276, 231);
+            NothingLabel.Location = new Point(215, 226);
             NothingLabel.Name = "NothingLabel";
+            NothingLabel.RightToLeft = RightToLeft.No;
             NothingLabel.Size = new Size(135, 20);
             NothingLabel.TabIndex = 5;
             NothingLabel.Text = "Nothing was found";
+            NothingLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // LoadButton
             // 
-            LoadButton.Location = new Point(644, 405);
+            LoadButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            LoadButton.Location = new Point(979, 546);
             LoadButton.Name = "LoadButton";
-            LoadButton.Size = new Size(84, 25);
+            LoadButton.Size = new Size(90, 30);
             LoadButton.TabIndex = 6;
             LoadButton.Text = "Load";
             LoadButton.UseVisualStyleBackColor = true;
             LoadButton.Click += LoadButton_Click;
             // 
+            // FamilyTreeView
+            // 
+            FamilyTreeView.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            FamilyTreeView.Location = new Point(601, 51);
+            FamilyTreeView.Name = "FamilyTreeView";
+            FamilyTreeView.Size = new Size(468, 474);
+            FamilyTreeView.TabIndex = 7;
+            // 
+            // GetTree
+            // 
+            GetTree.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            GetTree.Location = new Point(13, 546);
+            GetTree.Name = "GetTree";
+            GetTree.Size = new Size(90, 30);
+            GetTree.TabIndex = 8;
+            GetTree.Text = "Get tree";
+            GetTree.UseVisualStyleBackColor = true;
+            GetTree.Click += GetTree_Click;
+            // 
+            // GenerateTestData
+            // 
+            GenerateTestData.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            GenerateTestData.Cursor = Cursors.Hand;
+            GenerateTestData.Font = new Font("Segoe UI", 8F);
+            GenerateTestData.Location = new Point(109, 546);
+            GenerateTestData.Name = "GenerateTestData";
+            GenerateTestData.RightToLeft = RightToLeft.Yes;
+            GenerateTestData.Size = new Size(90, 30);
+            GenerateTestData.TabIndex = 7;
+            GenerateTestData.Text = "Generate";
+            GenerateTestData.UseVisualStyleBackColor = true;
+            GenerateTestData.Click += GenerateTestData_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(740, 442);
+            ClientSize = new Size(1082, 588);
+            Controls.Add(GenerateTestData);
+            Controls.Add(GetTree);
+            Controls.Add(FamilyTreeView);
             Controls.Add(LoadButton);
             Controls.Add(NothingLabel);
             Controls.Add(SearchResults);
             Controls.Add(panel1);
             Controls.Add(menuStrip1);
-            MinimumSize = new Size(600, 450);
+            MinimumSize = new Size(1100, 635);
             Name = "MainForm";
             Text = "MainForm";
             FormClosing += MainForm_FormClosing;
@@ -394,5 +435,8 @@
         private ToolStripMenuItem editToolStripMenuItem;
         private ToolStripMenuItem deleteToolStripMenuItem;
         private Button LoadButton;
+        private TreeView FamilyTreeView;
+        private Button GetTree;
+        private Button GenerateTestData;
     }
 }
