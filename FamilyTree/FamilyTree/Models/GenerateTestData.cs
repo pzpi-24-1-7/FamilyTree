@@ -1,6 +1,6 @@
 ﻿namespace FamilyTree.Models
 {
-    public class GenerateTestData
+    public static class GenerateTestData
     {
         private static string[] MaleFirstNames = { "Ivan", "Olexandr", "Petro", "Mikhailo", "Andriy", "Serhiy" };
         private static string[] FemaleFirstNames = { "Maria", "Olga", "Anna", "Yulia", "Natalia", "Olena" };
@@ -16,7 +16,7 @@
         {
             var person = new Person
             {
-                Sex = sex,
+                Gender = sex,
                 FirstName = sex == Gender.Male ? MaleFirstNames[random.Next(MaleFirstNames.Length)] : FemaleFirstNames[random.Next(FemaleFirstNames.Length)],
                 LastName = LastNames[random.Next(LastNames.Length)],
                 MiddleName = sex == Gender.Male ? MaleMiddleNames[random.Next(MaleMiddleNames.Length)] : FemaleMiddleNames[random.Next(FemaleMiddleNames.Length)],
@@ -33,7 +33,7 @@
             Gender gender = random.Next(2) == 1 ? Gender.Male : Gender.Female;
 
             Person root = GeneratePerson(gender);
-            root.DateOfBirth = GenerateRandomDate(1980, 2000);
+            root.DateOfBirth = GenerateRandomDate(2000, 2020);
 
             tree.AddMember(root);
 
@@ -48,18 +48,16 @@
                 return;
 
             Person father = GeneratePerson(Gender.Male);
-            father.Sex = Gender.Male;
             father.DateOfBirth = child.DateOfBirth.AddYears(-random.Next(20, 40));
 
             Person mother = GeneratePerson(Gender.Female);
-            mother.Sex = Gender.Female;
             mother.DateOfBirth = child.DateOfBirth.AddYears(-random.Next(20, 35));
 
-            child.Father = father;
-            child.Mother = mother;
+            child.AddParent(father);
+            child.AddParent(mother);
 
-            father.Children.Add(child);
-            mother.Children.Add(child);
+            father.AddChild(child);
+            mother.AddChild(child);
 
             tree.AddMember(father);
             tree.AddMember(mother);
@@ -67,6 +65,7 @@
             GenerateAncestors(father, tree, currentDepth + 1, maxDepth);
             GenerateAncestors(mother, tree, currentDepth + 1, maxDepth);
         }
+
 
 
         private static DateTime GenerateRandomDate(int startYear, int endYear)

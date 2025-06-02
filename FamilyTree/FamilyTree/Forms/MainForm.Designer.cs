@@ -32,12 +32,15 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             FindButton = new Button();
             panel1 = new Panel();
+            ToDP = new DateTimePicker();
+            label3 = new Label();
+            label2 = new Label();
+            FromDP = new DateTimePicker();
+            label1 = new Label();
             DateLabel = new Label();
-            DateTextBox = new TextBox();
             NameLabel = new Label();
-            NameTextBox = new TextBox();
-            IdLabel = new Label();
-            IdTextBox = new TextBox();
+            LNBox = new TextBox();
+            FNBox = new TextBox();
             SearchResults = new ListBox();
             personBindingSource = new BindingSource(components);
             menuStrip1 = new MenuStrip();
@@ -54,6 +57,8 @@
             выходToolStripMenuItem = new ToolStripMenuItem();
             personToolStripMenuItem = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
+            addChildToolStripMenuItem = new ToolStripMenuItem();
+            addParentToolStripMenuItem = new ToolStripMenuItem();
             editToolStripMenuItem = new ToolStripMenuItem();
             deleteToolStripMenuItem = new ToolStripMenuItem();
             справкаToolStripMenuItem = new ToolStripMenuItem();
@@ -76,7 +81,7 @@
             // 
             FindButton.Cursor = Cursors.Hand;
             FindButton.Font = new Font("Segoe UI", 8F);
-            FindButton.Location = new Point(442, 108);
+            FindButton.Location = new Point(444, 108);
             FindButton.Name = "FindButton";
             FindButton.RightToLeft = RightToLeft.Yes;
             FindButton.Size = new Size(90, 30);
@@ -88,67 +93,95 @@
             // panel1
             // 
             panel1.BorderStyle = BorderStyle.FixedSingle;
+            panel1.Controls.Add(ToDP);
+            panel1.Controls.Add(label3);
+            panel1.Controls.Add(label2);
+            panel1.Controls.Add(FromDP);
+            panel1.Controls.Add(label1);
             panel1.Controls.Add(DateLabel);
-            panel1.Controls.Add(DateTextBox);
             panel1.Controls.Add(NameLabel);
-            panel1.Controls.Add(NameTextBox);
-            panel1.Controls.Add(IdLabel);
-            panel1.Controls.Add(IdTextBox);
+            panel1.Controls.Add(LNBox);
+            panel1.Controls.Add(FNBox);
             panel1.Controls.Add(FindButton);
             panel1.Location = new Point(16, 51);
             panel1.Name = "panel1";
             panel1.Size = new Size(550, 157);
             panel1.TabIndex = 2;
             // 
+            // ToDP
+            // 
+            ToDP.Location = new Point(265, 108);
+            ToDP.Name = "ToDP";
+            ToDP.ShowCheckBox = true;
+            ToDP.Size = new Size(160, 27);
+            ToDP.TabIndex = 12;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(237, 111);
+            label3.Name = "label3";
+            label3.Size = new Size(25, 20);
+            label3.TabIndex = 11;
+            label3.Text = "To";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(11, 111);
+            label2.Name = "label2";
+            label2.Size = new Size(43, 20);
+            label2.TabIndex = 10;
+            label2.Text = "From";
+            // 
+            // FromDP
+            // 
+            FromDP.Location = new Point(60, 108);
+            FromDP.Name = "FromDP";
+            FromDP.ShowCheckBox = true;
+            FromDP.Size = new Size(160, 27);
+            FromDP.TabIndex = 9;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(286, 22);
+            label1.Name = "label1";
+            label1.Size = new Size(76, 20);
+            label1.TabIndex = 8;
+            label1.Text = "Last name";
+            // 
             // DateLabel
             // 
             DateLabel.AutoSize = true;
-            DateLabel.Location = new Point(198, 21);
+            DateLabel.Location = new Point(11, 85);
             DateLabel.Name = "DateLabel";
             DateLabel.Size = new Size(94, 20);
             DateLabel.TabIndex = 6;
             DateLabel.Text = "Date of birth";
             // 
-            // DateTextBox
-            // 
-            DateTextBox.Location = new Point(198, 44);
-            DateTextBox.Name = "DateTextBox";
-            DateTextBox.Size = new Size(223, 27);
-            DateTextBox.TabIndex = 5;
-            // 
             // NameLabel
             // 
             NameLabel.AutoSize = true;
-            NameLabel.Location = new Point(25, 87);
+            NameLabel.Location = new Point(14, 22);
             NameLabel.Name = "NameLabel";
-            NameLabel.Size = new Size(150, 20);
+            NameLabel.Size = new Size(77, 20);
             NameLabel.TabIndex = 4;
-            NameLabel.Text = "Last name/First name";
+            NameLabel.Text = "First name";
             // 
-            // NameTextBox
+            // LNBox
             // 
-            NameTextBox.Location = new Point(25, 110);
-            NameTextBox.Name = "NameTextBox";
-            NameTextBox.Size = new Size(396, 27);
-            NameTextBox.TabIndex = 3;
+            LNBox.Location = new Point(286, 45);
+            LNBox.Name = "LNBox";
+            LNBox.Size = new Size(223, 27);
+            LNBox.TabIndex = 7;
             // 
-            // IdLabel
+            // FNBox
             // 
-            IdLabel.AutoSize = true;
-            IdLabel.Location = new Point(25, 20);
-            IdLabel.Name = "IdLabel";
-            IdLabel.Size = new Size(24, 20);
-            IdLabel.TabIndex = 2;
-            IdLabel.Text = "ID";
-            // 
-            // IdTextBox
-            // 
-            IdTextBox.BorderStyle = BorderStyle.FixedSingle;
-            IdTextBox.Cursor = Cursors.IBeam;
-            IdTextBox.Location = new Point(25, 43);
-            IdTextBox.Name = "IdTextBox";
-            IdTextBox.Size = new Size(137, 27);
-            IdTextBox.TabIndex = 1;
+            FNBox.Location = new Point(14, 45);
+            FNBox.Name = "FNBox";
+            FNBox.Size = new Size(223, 27);
+            FNBox.TabIndex = 3;
             // 
             // SearchResults
             // 
@@ -253,7 +286,7 @@
             выходToolStripMenuItem.Name = "выходToolStripMenuItem";
             выходToolStripMenuItem.Size = new Size(294, 26);
             выходToolStripMenuItem.Text = "Вы&ход";
-            выходToolStripMenuItem.Click += выходToolStripMenuItem_Click;
+            выходToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
             // personToolStripMenuItem
             // 
@@ -264,23 +297,38 @@
             // 
             // newToolStripMenuItem
             // 
+            newToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addChildToolStripMenuItem, addParentToolStripMenuItem });
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(136, 26);
+            newToolStripMenuItem.Size = new Size(224, 26);
             newToolStripMenuItem.Text = "New";
-            newToolStripMenuItem.Click += newToolStripMenuItem_Click;
+            // 
+            // addChildToolStripMenuItem
+            // 
+            addChildToolStripMenuItem.Name = "addChildToolStripMenuItem";
+            addChildToolStripMenuItem.Size = new Size(224, 26);
+            addChildToolStripMenuItem.Text = "Add child";
+            addChildToolStripMenuItem.Click += addChildToolStripMenuItem_Click;
+            // 
+            // addParentToolStripMenuItem
+            // 
+            addParentToolStripMenuItem.Name = "addParentToolStripMenuItem";
+            addParentToolStripMenuItem.Size = new Size(224, 26);
+            addParentToolStripMenuItem.Text = "Add parent";
+            addParentToolStripMenuItem.Click += addParentToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
             editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(136, 26);
+            editToolStripMenuItem.Size = new Size(224, 26);
             editToolStripMenuItem.Text = "Edit";
             editToolStripMenuItem.Click += editToolStripMenuItem_Click;
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(136, 26);
+            deleteToolStripMenuItem.Size = new Size(224, 26);
             deleteToolStripMenuItem.Text = "Delete";
+            deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
             // справкаToolStripMenuItem
             // 
@@ -388,7 +436,7 @@
             Controls.Add(menuStrip1);
             MinimumSize = new Size(1100, 635);
             Name = "MainForm";
-            Text = "MainForm";
+            Text = "Family tree";
             FormClosing += MainForm_FormClosing;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
@@ -423,11 +471,8 @@
         private ToolStripSeparator toolStripSeparator5;
         private ToolStripMenuItem опрограммеToolStripMenuItem;
         private Label NameLabel;
-        private TextBox NameTextBox;
+        private TextBox FNBox;
         private Label DateLabel;
-        private TextBox DateTextBox;
-        private Label IdLabel;
-        private TextBox IdTextBox;
         private Label NothingLabel;
         private BindingSource personBindingSource;
         private ToolStripMenuItem personToolStripMenuItem;
@@ -438,5 +483,13 @@
         private TreeView FamilyTreeView;
         private Button GetTree;
         private Button GenerateTestData;
+        private DateTimePicker FromDP;
+        private Label label1;
+        private TextBox LNBox;
+        private DateTimePicker ToDP;
+        private Label label3;
+        private Label label2;
+        private ToolStripMenuItem addChildToolStripMenuItem;
+        private ToolStripMenuItem addParentToolStripMenuItem;
     }
 }

@@ -30,14 +30,10 @@
         {
             label1 = new Label();
             POBBox = new TextBox();
-            MotherCBox = new ComboBox();
-            FatherCBox = new ComboBox();
             SexCBox = new ComboBox();
             dateTimePicker = new DateTimePicker();
             button2 = new Button();
             OKButton = new Button();
-            label9 = new Label();
-            label8 = new Label();
             label7 = new Label();
             label6 = new Label();
             AddressBox = new TextBox();
@@ -65,22 +61,7 @@
             POBBox.Name = "POBBox";
             POBBox.Size = new Size(532, 27);
             POBBox.TabIndex = 44;
-            // 
-            // MotherCBox
-            // 
-            MotherCBox.FormattingEnabled = true;
-            MotherCBox.Location = new Point(457, 229);
-            MotherCBox.Name = "MotherCBox";
-            MotherCBox.Size = new Size(220, 28);
-            MotherCBox.TabIndex = 43;
-            // 
-            // FatherCBox
-            // 
-            FatherCBox.FormattingEnabled = true;
-            FatherCBox.Location = new Point(145, 229);
-            FatherCBox.Name = "FatherCBox";
-            FatherCBox.Size = new Size(220, 28);
-            FatherCBox.TabIndex = 42;
+            POBBox.Validated += POBBox_Validating;
             // 
             // SexCBox
             // 
@@ -117,24 +98,7 @@
             OKButton.Text = "OK";
             OKButton.UseVisualStyleBackColor = true;
             OKButton.Click += OKButton_Click;
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Location = new Point(392, 233);
-            label9.Name = "label9";
-            label9.Size = new Size(57, 20);
-            label9.TabIndex = 37;
-            label9.Text = "Mother";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Location = new Point(86, 233);
-            label8.Name = "label8";
-            label8.Size = new Size(49, 20);
-            label8.TabIndex = 36;
-            label8.Text = "Father";
+            OKButton.DialogResult = DialogResult.None;
             // 
             // label7
             // 
@@ -160,6 +124,7 @@
             AddressBox.Name = "AddressBox";
             AddressBox.Size = new Size(532, 27);
             AddressBox.TabIndex = 33;
+            AddressBox.Validated += AddressBox_Validating;
             // 
             // label5
             // 
@@ -185,6 +150,7 @@
             MNBox.Name = "MNBox";
             MNBox.Size = new Size(532, 27);
             MNBox.TabIndex = 30;
+            MNBox.Validated += MNBox_Validating;
             // 
             // label11
             // 
@@ -201,6 +167,7 @@
             LNBox.Name = "LNBox";
             LNBox.Size = new Size(532, 27);
             LNBox.TabIndex = 28;
+            LNBox.Validated += LNBox_Validating;
             // 
             // label10
             // 
@@ -217,7 +184,7 @@
             FNBox.Name = "FNBox";
             FNBox.Size = new Size(532, 27);
             FNBox.TabIndex = 26;
-            FNBox.Validated += FNBox_Validated;
+            FNBox.Validated += FNBox_Validating;
             // 
             // EditPersonForm
             // 
@@ -226,14 +193,10 @@
             ClientSize = new Size(732, 333);
             Controls.Add(label1);
             Controls.Add(POBBox);
-            Controls.Add(MotherCBox);
-            Controls.Add(FatherCBox);
             Controls.Add(SexCBox);
             Controls.Add(dateTimePicker);
             Controls.Add(button2);
             Controls.Add(OKButton);
-            Controls.Add(label9);
-            Controls.Add(label8);
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(AddressBox);
@@ -247,7 +210,7 @@
             MaximumSize = new Size(750, 380);
             MinimumSize = new Size(750, 380);
             Name = "EditPersonForm";
-            Text = "Form1";
+            Text = "Edit person";
             ResumeLayout(false);
             PerformLayout();
         }
@@ -256,14 +219,10 @@
 
         private Label label1;
         private TextBox POBBox;
-        private ComboBox MotherCBox;
-        private ComboBox FatherCBox;
         private ComboBox SexCBox;
         private DateTimePicker dateTimePicker;
         private Button button2;
         private Button OKButton;
-        private Label label9;
-        private Label label8;
         private Label label7;
         private Label label6;
         private TextBox AddressBox;
