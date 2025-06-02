@@ -66,7 +66,7 @@
             индексToolStripMenuItem = new ToolStripMenuItem();
             поискToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator5 = new ToolStripSeparator();
-            опрограммеToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
             NothingLabel = new Label();
             LoadButton = new Button();
             FamilyTreeView = new TreeView();
@@ -233,6 +233,7 @@
             открытьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.O;
             открытьToolStripMenuItem.Size = new Size(294, 26);
             открытьToolStripMenuItem.Text = "&Открыть";
+            открытьToolStripMenuItem.Click += loadToolStripMenuItem_Click;
             // 
             // toolStripSeparator
             // 
@@ -247,6 +248,7 @@
             сохранитьToolStripMenuItem.ShortcutKeys = Keys.Control | Keys.S;
             сохранитьToolStripMenuItem.Size = new Size(294, 26);
             сохранитьToolStripMenuItem.Text = "&Сохранить";
+            сохранитьToolStripMenuItem.Click += saveToolStripMenuItem_Click;
             // 
             // сохранитькакToolStripMenuItem
             // 
@@ -299,40 +301,40 @@
             // 
             newToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addChildToolStripMenuItem, addParentToolStripMenuItem });
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(224, 26);
+            newToolStripMenuItem.Size = new Size(136, 26);
             newToolStripMenuItem.Text = "New";
             // 
             // addChildToolStripMenuItem
             // 
             addChildToolStripMenuItem.Name = "addChildToolStripMenuItem";
-            addChildToolStripMenuItem.Size = new Size(224, 26);
+            addChildToolStripMenuItem.Size = new Size(167, 26);
             addChildToolStripMenuItem.Text = "Add child";
             addChildToolStripMenuItem.Click += addChildToolStripMenuItem_Click;
             // 
             // addParentToolStripMenuItem
             // 
             addParentToolStripMenuItem.Name = "addParentToolStripMenuItem";
-            addParentToolStripMenuItem.Size = new Size(224, 26);
+            addParentToolStripMenuItem.Size = new Size(167, 26);
             addParentToolStripMenuItem.Text = "Add parent";
             addParentToolStripMenuItem.Click += addParentToolStripMenuItem_Click;
             // 
             // editToolStripMenuItem
             // 
             editToolStripMenuItem.Name = "editToolStripMenuItem";
-            editToolStripMenuItem.Size = new Size(224, 26);
+            editToolStripMenuItem.Size = new Size(136, 26);
             editToolStripMenuItem.Text = "Edit";
             editToolStripMenuItem.Click += editToolStripMenuItem_Click;
             // 
             // deleteToolStripMenuItem
             // 
             deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            deleteToolStripMenuItem.Size = new Size(224, 26);
+            deleteToolStripMenuItem.Size = new Size(136, 26);
             deleteToolStripMenuItem.Text = "Delete";
             deleteToolStripMenuItem.Click += deleteToolStripMenuItem_Click;
             // 
             // справкаToolStripMenuItem
             // 
-            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { содержимоеToolStripMenuItem, индексToolStripMenuItem, поискToolStripMenuItem, toolStripSeparator5, опрограммеToolStripMenuItem });
+            справкаToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { содержимоеToolStripMenuItem, индексToolStripMenuItem, поискToolStripMenuItem, toolStripSeparator5, aboutToolStripMenuItem });
             справкаToolStripMenuItem.Name = "справкаToolStripMenuItem";
             справкаToolStripMenuItem.Size = new Size(81, 24);
             справкаToolStripMenuItem.Text = "&Справка";
@@ -340,31 +342,32 @@
             // содержимоеToolStripMenuItem
             // 
             содержимоеToolStripMenuItem.Name = "содержимоеToolStripMenuItem";
-            содержимоеToolStripMenuItem.Size = new Size(198, 26);
+            содержимоеToolStripMenuItem.Size = new Size(224, 26);
             содержимоеToolStripMenuItem.Text = "&Содержимое";
             // 
             // индексToolStripMenuItem
             // 
             индексToolStripMenuItem.Name = "индексToolStripMenuItem";
-            индексToolStripMenuItem.Size = new Size(198, 26);
+            индексToolStripMenuItem.Size = new Size(224, 26);
             индексToolStripMenuItem.Text = "&Индекс";
             // 
             // поискToolStripMenuItem
             // 
             поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            поискToolStripMenuItem.Size = new Size(198, 26);
+            поискToolStripMenuItem.Size = new Size(224, 26);
             поискToolStripMenuItem.Text = "&Поиск";
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(195, 6);
+            toolStripSeparator5.Size = new Size(221, 6);
             // 
-            // опрограммеToolStripMenuItem
+            // aboutToolStripMenuItem
             // 
-            опрограммеToolStripMenuItem.Name = "опрограммеToolStripMenuItem";
-            опрограммеToolStripMenuItem.Size = new Size(198, 26);
-            опрограммеToolStripMenuItem.Text = "&О программе…";
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(224, 26);
+            aboutToolStripMenuItem.Text = "About";
+            aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
             // NothingLabel
             // 
@@ -469,7 +472,7 @@
         private ToolStripMenuItem индексToolStripMenuItem;
         private ToolStripMenuItem поискToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator5;
-        private ToolStripMenuItem опрограммеToolStripMenuItem;
+        private ToolStripMenuItem aboutToolStripMenuItem;
         private Label NameLabel;
         private TextBox FNBox;
         private Label DateLabel;

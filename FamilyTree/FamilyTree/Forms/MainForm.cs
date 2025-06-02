@@ -48,6 +48,45 @@ namespace FamilyTree
             }
         }
 
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            familyTree.SerializeData("familytree.json");
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                familyTree = new FamilyTree.Models.FamilyTree();
+                familyTree.DeserializeData("familytree.json");
+                DisplayTree(familyTree.GetRootMember());
+                MessageBox.Show("Family tree loaded successfully!");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading family tree: {ex.Message}");
+            }
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string aboutMessage =
+                "Програма: Сімейне дерево\n" +
+                "Версія: 1.0.0\n" +
+                "Автор: Зозуля Д. О.\n" +
+                "Опис: Програма для створення, редагування та перегляду сімейного дерева.\n" +
+                "Основні функції:\n" +
+                "- Додавання нових членів сім’ї\n" +
+                "- Редагування інформації про осіб\n" +
+                "- Видалення осіб та їхніх предків\n" +
+                "- Пошук членів сім’ї за різними параметрами\n" +
+                "- Генерація тестових даних\n" +
+                "- Збереження та завантаження даних\n" +
+                "- Візуалізація сімейного дерева";
+
+            MessageBox.Show(aboutMessage, "Про програму", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Close();
