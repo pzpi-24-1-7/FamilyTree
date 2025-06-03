@@ -32,7 +32,7 @@
             POBBox = new TextBox();
             SexCBox = new ComboBox();
             dateTimePicker = new DateTimePicker();
-            button2 = new Button();
+            CancelButton1 = new Button();
             OKButton = new Button();
             label7 = new Label();
             label6 = new Label();
@@ -61,7 +61,6 @@
             POBBox.Name = "POBBox";
             POBBox.Size = new Size(532, 27);
             POBBox.TabIndex = 44;
-            POBBox.Validated += POBBox_Validating;
             // 
             // SexCBox
             // 
@@ -78,15 +77,16 @@
             dateTimePicker.Size = new Size(309, 27);
             dateTimePicker.TabIndex = 40;
             // 
-            // button2
+            // CancelButton1
             // 
-            button2.DialogResult = DialogResult.Cancel;
-            button2.Location = new Point(392, 281);
-            button2.Name = "button2";
-            button2.Size = new Size(100, 40);
-            button2.TabIndex = 39;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
+            CancelButton1.DialogResult = DialogResult.Cancel;
+            CancelButton1.Location = new Point(392, 281);
+            CancelButton1.Name = "CancelButton1";
+            CancelButton1.Size = new Size(100, 40);
+            CancelButton1.TabIndex = 39;
+            CancelButton1.Text = "Cancel";
+            CancelButton1.UseVisualStyleBackColor = true;
+            CancelButton1.Click += CancelButton1_Click;
             // 
             // OKButton
             // 
@@ -98,7 +98,6 @@
             OKButton.Text = "OK";
             OKButton.UseVisualStyleBackColor = true;
             OKButton.Click += OKButton_Click;
-            OKButton.DialogResult = DialogResult.None;
             // 
             // label7
             // 
@@ -124,7 +123,6 @@
             AddressBox.Name = "AddressBox";
             AddressBox.Size = new Size(532, 27);
             AddressBox.TabIndex = 33;
-            AddressBox.Validated += AddressBox_Validating;
             // 
             // label5
             // 
@@ -150,7 +148,6 @@
             MNBox.Name = "MNBox";
             MNBox.Size = new Size(532, 27);
             MNBox.TabIndex = 30;
-            MNBox.Validated += MNBox_Validating;
             // 
             // label11
             // 
@@ -167,7 +164,6 @@
             LNBox.Name = "LNBox";
             LNBox.Size = new Size(532, 27);
             LNBox.TabIndex = 28;
-            LNBox.Validated += LNBox_Validating;
             // 
             // label10
             // 
@@ -184,7 +180,6 @@
             FNBox.Name = "FNBox";
             FNBox.Size = new Size(532, 27);
             FNBox.TabIndex = 26;
-            FNBox.Validated += FNBox_Validating;
             // 
             // EditPersonForm
             // 
@@ -195,7 +190,7 @@
             Controls.Add(POBBox);
             Controls.Add(SexCBox);
             Controls.Add(dateTimePicker);
-            Controls.Add(button2);
+            Controls.Add(CancelButton1);
             Controls.Add(OKButton);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -221,7 +216,7 @@
         private TextBox POBBox;
         private ComboBox SexCBox;
         private DateTimePicker dateTimePicker;
-        private Button button2;
+        private Button CancelButton1;
         private Button OKButton;
         private Label label7;
         private Label label6;

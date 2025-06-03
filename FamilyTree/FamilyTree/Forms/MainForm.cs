@@ -100,8 +100,8 @@ namespace FamilyTree
                 return;
             }
 
-            using NewPersonForm form = new();
-            if (form.ShowDialog() == DialogResult.OK)
+            using NewPersonForm form = new("Parent", selectedPerson.DateOfBirth);
+            if (form.ShowDialog() == DialogResult.OK && form.Person != null)
             {
                 Person newParent = form.Person;
                 selectedPerson.AddParent(newParent);
@@ -120,8 +120,8 @@ namespace FamilyTree
                 return;
             }
 
-            using NewPersonForm form = new();
-            if (form.ShowDialog() == DialogResult.OK)
+            using NewPersonForm form = new("Child", selectedPerson.DateOfBirth);
+            if (form.ShowDialog() == DialogResult.OK && form.Person != null)
             {
                 Person newChild = form.Person;
                 selectedPerson.AddChild(newChild);
@@ -233,7 +233,7 @@ namespace FamilyTree
 
         private void GenerateTestData_Click(object sender, EventArgs e)
         {
-            familyTree = Models.GenerateTestData.GenerateFamilyTreeWithAncestors();
+            familyTree = Utils.GenerateTestData.GenerateFamilyTreeWithAncestors();
             DisplayTree(familyTree.GetRootMember());
         }
 
@@ -246,6 +246,23 @@ namespace FamilyTree
                 FamilyTreeView.Nodes.Add(treeNode);
 
             FamilyTreeView.ExpandAll();
+        }
+
+        private void GetPassportData_Click(object sender, EventArgs e)
+        {
+            Person? person = null;
+
+            if (SearchResults.SelectedItem is Person selectedFromList)
+            {
+                person = selectedFromList;
+            }
+            else if (FamilyTreeView.SelectedNode?.Tag is Person selectedFromTree)
+            {
+                person = selectedFromTree;
+            }
+
+            string passportData = person.GetPassportData();
+            MessageBox.Show(passportData, $"{person.FirstName} {person.LastName} - Passport Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

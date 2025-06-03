@@ -1,138 +1,130 @@
 ﻿using FamilyTree.Models;
+using System;
 
 namespace FamilyTree.Forms
 {
     public partial class NewPersonForm : Form
     {
-        public Person Person;
-        public NewPersonForm()
+        public Person Person { get; private set; }
+        private readonly string _personType;
+        private readonly DateTime? _selectedPersonBirthDate;
+
+        public NewPersonForm(string personType, DateTime? selectedPersonBirthDate = null)
         {
             InitializeComponent();
+            _personType = personType;
+            _selectedPersonBirthDate = selectedPersonBirthDate;
             SexCBox.Items.AddRange(["Male", "Female"]);
+            KeyPreview = true;
+            AcceptButton = OKButton;
+            CancelButton = CancelButton1;
         }
 
-        private void OKButton_Click(object sender, EventArgs e)
+        private bool ValidateForm(out string errorMessage)
         {
+            errorMessage = string.Empty;
+
             if (string.IsNullOrWhiteSpace(FNBox.Text))
             {
-                MessageBox.Show("First name must not be empty.");
+                errorMessage = "First name must not be empty.";
                 FNBox.Focus();
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(LNBox.Text))
             {
-                MessageBox.Show("Last name must not be empty.");
+                errorMessage = "Last name must not be empty.";
                 LNBox.Focus();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(MNBox.Text))
-            {
-                MessageBox.Show("Middle name must not be empty.");
-                MNBox.Focus();
-                return;
+                return false;
             }
 
             if (SexCBox.SelectedItem == null)
             {
-                MessageBox.Show("Please select a gender.");
+                errorMessage = "Please select a gender.";
                 SexCBox.Focus();
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(AddressBox.Text))
             {
-                MessageBox.Show("Address must not be empty.");
+                errorMessage = "Address must not be empty.";
                 AddressBox.Focus();
-                return;
+                return false;
             }
 
             if (string.IsNullOrWhiteSpace(POBBox.Text))
             {
-                MessageBox.Show("Place of birth must not be empty.");
+                errorMessage = "Place of birth must not be empty.";
                 POBBox.Focus();
-                return;
+                return false;
             }
 
             if (dateTimePicker.Value > DateTime.Now)
             {
-                MessageBox.Show("Date of birth cannot be in the future.");
+                errorMessage = "Date of birth cannot be in the future.";
                 dateTimePicker.Focus();
+                return false;
+            }
+
+            if (_selectedPersonBirthDate.HasValue)
+            {
+                var newPersonBirthDate = dateTimePicker.Value;
+                var ageDifferenceYears = (newPersonBirthDate - _selectedPersonBirthDate.Value).TotalDays / 365.25;
+
+                if (_personType == "Parent" && ageDifferenceYears > -16)
+                {
+                    errorMessage = "Parent must be at least 16 years older than the child.";
+                    dateTimePicker.Focus();
+                    return false;
+                }
+
+                if (_personType == "Child" && ageDifferenceYears < 16)
+                {
+                    errorMessage = "Child must be at least 16 years younger than the parent.";
+                    dateTimePicker.Focus();
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private void OKButton_Click(object sender, EventArgs e)
+        {
+            if (!ValidateForm(out string errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
-            }
-
-            DateTime newBirthDate = dateTimePicker.Value;
-
-            if (Person.Father != null)
-            {
-                TimeSpan diffWithFather = newBirthDate - Person.Father.DateOfBirth;
-                if (diffWithFather.TotalDays < 16 * 365.25)
-                {
-                    MessageBox.Show("The parent must be at least 16 years older than the child");
-                    return;
-                }
-            }
-
-            if (Person.Mother != null)
-            {
-                TimeSpan diffWithMother = newBirthDate - Person.Mother.DateOfBirth;
-                if (diffWithMother.TotalDays < 16 * 365.25)
-                {
-                    MessageBox.Show("The parent must be at least 16 years older than the child");
-                    return;
-                }
             }
 
             Person = new Person
             {
-                FirstName = FNBox.Text,
-                LastName = LNBox.Text,
-                MiddleName = MNBox.Text,
+                FirstName = FNBox.Text.Trim(),
+                LastName = LNBox.Text.Trim(),
+                MiddleName = MNBox.Text.Trim(),
                 Gender = SexCBox.SelectedIndex == 0 ? Gender.Male : Gender.Female,
                 DateOfBirth = dateTimePicker.Value,
-                PlaceOfBirth = POBBox.Text,
-                Address = AddressBox.Text,
+                PlaceOfBirth = POBBox.Text.Trim(),
+                Address = AddressBox.Text.Trim(),
             };
 
             DialogResult = DialogResult.OK;
             Close();
         }
 
-        private void FNBox_Validated(object sender, EventArgs e)
+        private void CancelButton1_Click(object sender, EventArgs e)
         {
-            if (FNBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
 
-        private void LNBox_Validated(object sender, EventArgs e)
+        protected override void OnFormClosing(FormClosingEventArgs e)
         {
-            if (LNBox.Text.Trim() == "")
+            base.OnFormClosing(e);
+            if (DialogResult == DialogResult.OK && Person == null)
             {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-        private void MNBox_Validated(object sender, EventArgs e)
-        {
-            if (MNBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-        private void AddressBox_Validated(object sender, EventArgs e)
-        {
-            if (AddressBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-        private void POBBox_Validated(object sender, EventArgs e)
-        {
-            if (POBBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
+                e.Cancel = true;
+                MessageBox.Show("Please fill in all required fields.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }

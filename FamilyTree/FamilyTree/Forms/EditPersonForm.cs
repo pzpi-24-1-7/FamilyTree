@@ -9,6 +9,11 @@ namespace FamilyTree.Forms
         public EditPersonForm(Person person)
         {
             InitializeComponent();
+
+            KeyPreview = true;
+            AcceptButton = OKButton;
+            CancelButton = CancelButton1;
+
             SexCBox.Items.AddRange(Enum.GetValues(typeof(Gender)).Cast<object>().ToArray());
             FNBox.Text = person.FirstName;
             LNBox.Text = person.LastName;
@@ -33,13 +38,6 @@ namespace FamilyTree.Forms
             {
                 MessageBox.Show("Last name must not be empty.");
                 LNBox.Focus();
-                return;
-            }
-
-            if (string.IsNullOrWhiteSpace(MNBox.Text))
-            {
-                MessageBox.Show("Middle name must not be empty.");
-                MNBox.Focus();
                 return;
             }
 
@@ -105,41 +103,10 @@ namespace FamilyTree.Forms
             Close();
         }
 
-        private void FNBox_Validating(object sender, EventArgs e)
+        private void CancelButton1_Click(object sender, EventArgs e)
         {
-            if (FNBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-
-        private void LNBox_Validating(object sender, EventArgs e)
-        {
-            if (LNBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-        private void MNBox_Validating(object sender, EventArgs e)
-        {
-            if (MNBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-        private void AddressBox_Validating(object sender, EventArgs e)
-        {
-            if (AddressBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
-        }
-        private void POBBox_Validating(object sender, EventArgs e)
-        {
-            if (POBBox.Text.Trim() == "")
-            {
-                MessageBox.Show("Input must not be empty.");
-            }
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }

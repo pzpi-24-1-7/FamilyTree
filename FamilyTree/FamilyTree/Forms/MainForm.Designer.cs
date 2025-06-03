@@ -72,6 +72,7 @@
             FamilyTreeView = new TreeView();
             GetTree = new Button();
             GenerateTestData = new Button();
+            GetPassportData = new Button();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             menuStrip1.SuspendLayout();
@@ -342,30 +343,30 @@
             // содержимоеToolStripMenuItem
             // 
             содержимоеToolStripMenuItem.Name = "содержимоеToolStripMenuItem";
-            содержимоеToolStripMenuItem.Size = new Size(224, 26);
+            содержимоеToolStripMenuItem.Size = new Size(183, 26);
             содержимоеToolStripMenuItem.Text = "&Содержимое";
             // 
             // индексToolStripMenuItem
             // 
             индексToolStripMenuItem.Name = "индексToolStripMenuItem";
-            индексToolStripMenuItem.Size = new Size(224, 26);
+            индексToolStripMenuItem.Size = new Size(183, 26);
             индексToolStripMenuItem.Text = "&Индекс";
             // 
             // поискToolStripMenuItem
             // 
             поискToolStripMenuItem.Name = "поискToolStripMenuItem";
-            поискToolStripMenuItem.Size = new Size(224, 26);
+            поискToolStripMenuItem.Size = new Size(183, 26);
             поискToolStripMenuItem.Text = "&Поиск";
             // 
             // toolStripSeparator5
             // 
             toolStripSeparator5.Name = "toolStripSeparator5";
-            toolStripSeparator5.Size = new Size(221, 6);
+            toolStripSeparator5.Size = new Size(180, 6);
             // 
             // aboutToolStripMenuItem
             // 
             aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            aboutToolStripMenuItem.Size = new Size(224, 26);
+            aboutToolStripMenuItem.Size = new Size(183, 26);
             aboutToolStripMenuItem.Text = "About";
             aboutToolStripMenuItem.Click += aboutToolStripMenuItem_Click;
             // 
@@ -424,11 +425,26 @@
             GenerateTestData.UseVisualStyleBackColor = true;
             GenerateTestData.Click += GenerateTestData_Click;
             // 
+            // GetPassportData
+            // 
+            GetPassportData.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            GetPassportData.Cursor = Cursors.Hand;
+            GetPassportData.Font = new Font("Segoe UI", 8F);
+            GetPassportData.Location = new Point(205, 546);
+            GetPassportData.Name = "GetPassportData";
+            GetPassportData.RightToLeft = RightToLeft.Yes;
+            GetPassportData.Size = new Size(145, 30);
+            GetPassportData.TabIndex = 9;
+            GetPassportData.Text = "Passport data";
+            GetPassportData.UseVisualStyleBackColor = true;
+            GetPassportData.Click += GetPassportData_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1082, 588);
+            Controls.Add(GetPassportData);
             Controls.Add(GenerateTestData);
             Controls.Add(GetTree);
             Controls.Add(FamilyTreeView);
@@ -494,5 +510,6 @@
         private Label label2;
         private ToolStripMenuItem addChildToolStripMenuItem;
         private ToolStripMenuItem addParentToolStripMenuItem;
+        private Button GetPassportData;
     }
 }

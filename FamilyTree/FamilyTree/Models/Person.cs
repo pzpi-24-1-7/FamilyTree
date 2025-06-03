@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Text;
+using System.Text.Json.Serialization;
 
 namespace FamilyTree.Models
 {
@@ -13,7 +14,7 @@ namespace FamilyTree.Models
         private string Id { get; set; } = Guid.NewGuid().ToString();
         public string FirstName { get; set; } = "No data yet";
         public string LastName { get; set; } = "No data yet";
-        public string MiddleName { get; set; } = "No data yet";
+        public string? MiddleName { get; set; }
         public Gender Gender { get; set; }
         public DateTime DateOfBirth { get; set; }
         public string PlaceOfBirth { get; set; } = "No data yet";
@@ -30,17 +31,34 @@ namespace FamilyTree.Models
             Children = [];
         }
 
-        public void GetPassportData()
+        public string GetPassportData()
         {
-            Console.WriteLine($"ID: {Id};" +
-                $"\nFirst name: {FirstName};" +
-                $"\nLast name: {LastName};" +
-                $"\nMiddle name: {MiddleName};" +
-                $"\nSex: {Gender};" +
-                $"\nDate of birth: {DateOfBirth};" +
-                $"\nPlace of birth: {PlaceOfBirth};" +
-                $"\nAddress: {Address};" +
-                $"\nChildren: {Children.FirstOrDefault()};");
+            StringBuilder sb = new();
+            sb.AppendLine($"ID: {Id}");
+            sb.AppendLine($"First Name: {FirstName}");
+            sb.AppendLine($"Last Name: {LastName}");
+            sb.AppendLine($"Middle Name: {MiddleName ?? "Not specified"}");
+            sb.AppendLine($"Gender: {Gender}");
+            sb.AppendLine($"Date of Birth: {DateOfBirth:dd.MM.yyyy}");
+            sb.AppendLine($"Place of Birth: {PlaceOfBirth}");
+            sb.AppendLine($"Address: {Address}");
+            sb.AppendLine($"Father: {(Father != null ? $"{Father.FirstName} {Father.LastName}" : "Not specified")}");
+            sb.AppendLine($"Mother: {(Mother != null ? $"{Mother.FirstName} {Mother.LastName}" : "Not specified")}");
+
+            if (Children == null || Children.Count == 0)
+            {
+                sb.AppendLine("Children: None");
+            }
+            else
+            {
+                sb.AppendLine($"Children ({Children.Count}):");
+                foreach (var child in Children)
+                {
+                    sb.AppendLine($"  - {child.FirstName} {child.LastName}");
+                }
+            }
+
+            return sb.ToString();
         }
 
         public void AddChild(Person child)

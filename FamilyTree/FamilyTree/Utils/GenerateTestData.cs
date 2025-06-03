@@ -1,4 +1,6 @@
-﻿namespace FamilyTree.Models
+﻿using FamilyTree.Models;
+
+namespace FamilyTree.Utils
 {
     public static class GenerateTestData
     {
@@ -27,9 +29,9 @@
             return person;
         }
 
-        public static FamilyTree GenerateFamilyTreeWithAncestors(int maxDepth = 4)
+        public static FamilyTree.Models.FamilyTree GenerateFamilyTreeWithAncestors(int maxDepth = 4)
         {
-            var tree = new FamilyTree();
+            var tree = new FamilyTree.Models.FamilyTree();
             Gender gender = random.Next(2) == 1 ? Gender.Male : Gender.Female;
 
             Person root = GeneratePerson(gender);
@@ -42,7 +44,7 @@
             return tree;
         }
 
-        private static void GenerateAncestors(Person child, FamilyTree tree, int currentDepth, int maxDepth)
+        private static void GenerateAncestors(Person child, FamilyTree.Models.FamilyTree tree, int currentDepth, int maxDepth)
         {
             if (currentDepth > maxDepth)
                 return;
@@ -65,8 +67,6 @@
             GenerateAncestors(father, tree, currentDepth + 1, maxDepth);
             GenerateAncestors(mother, tree, currentDepth + 1, maxDepth);
         }
-
-
 
         private static DateTime GenerateRandomDate(int startYear, int endYear)
         {

@@ -39,7 +39,7 @@
             AddressBox = new TextBox();
             label7 = new Label();
             OKButton = new Button();
-            button2 = new Button();
+            CancelButton1 = new Button();
             dateTimePicker = new DateTimePicker();
             SexCBox = new ComboBox();
             label1 = new Label();
@@ -64,7 +64,7 @@
             FNBox.Name = "FNBox";
             FNBox.Size = new Size(532, 27);
             FNBox.TabIndex = 2;
-            FNBox.Validated += FNBox_Validated;
+            //FNBox.Validated += FNBox_Validated;
             // 
             // label3
             // 
@@ -81,7 +81,7 @@
             LNBox.Name = "LNBox";
             LNBox.Size = new Size(532, 27);
             LNBox.TabIndex = 4;
-            LNBox.Validated += LNBox_Validated;
+            //LNBox.Validated += LNBox_Validated;
             // 
             // label4
             // 
@@ -98,7 +98,7 @@
             MNBox.Name = "MNBox";
             MNBox.Size = new Size(532, 27);
             MNBox.TabIndex = 6;
-            MNBox.Validated += MNBox_Validated;
+            //MNBox.Validated += MNBox_Validated;
             // 
             // label5
             // 
@@ -124,7 +124,7 @@
             AddressBox.Name = "AddressBox";
             AddressBox.Size = new Size(532, 27);
             AddressBox.TabIndex = 10;
-            AddressBox.Validated += AddressBox_Validated;
+            //AddressBox.Validated += AddressBox_Validated;
             // 
             // label7
             // 
@@ -137,6 +137,7 @@
             // 
             // OKButton
             // 
+            OKButton.DialogResult = DialogResult.OK;
             OKButton.Location = new Point(224, 281);
             OKButton.Name = "OKButton";
             OKButton.Size = new Size(100, 40);
@@ -145,15 +146,15 @@
             OKButton.UseVisualStyleBackColor = true;
             OKButton.Click += OKButton_Click;
             // 
-            // button2
+            // CancelButton1
             // 
-            button2.DialogResult = DialogResult.Cancel;
-            button2.Location = new Point(401, 281);
-            button2.Name = "button2";
-            button2.Size = new Size(100, 40);
-            button2.TabIndex = 19;
-            button2.Text = "Cancel";
-            button2.UseVisualStyleBackColor = true;
+            CancelButton1.DialogResult = DialogResult.Cancel;
+            CancelButton1.Location = new Point(401, 281);
+            CancelButton1.Name = "CancelButton1";
+            CancelButton1.Size = new Size(100, 40);
+            CancelButton1.TabIndex = 19;
+            CancelButton1.Text = "Cancel";
+            CancelButton1.UseVisualStyleBackColor = true;
             // 
             // dateTimePicker
             // 
@@ -185,7 +186,7 @@
             POBBox.Name = "POBBox";
             POBBox.Size = new Size(532, 27);
             POBBox.TabIndex = 24;
-            POBBox.Validated += POBBox_Validated;
+            //POBBox.Validated += POBBox_Validated;
             // 
             // label10
             // 
@@ -223,7 +224,7 @@
             Controls.Add(POBBox);
             Controls.Add(SexCBox);
             Controls.Add(dateTimePicker);
-            Controls.Add(button2);
+            Controls.Add(CancelButton1);
             Controls.Add(OKButton);
             Controls.Add(label7);
             Controls.Add(label6);
@@ -258,7 +259,7 @@
         private TextBox AddressBox;
         private Label label7;
         private Button OKButton;
-        private Button button2;
+        private Button CancelButton1;
         private DateTimePicker dateTimePicker;
         private ComboBox SexCBox;
         private Label label1;
