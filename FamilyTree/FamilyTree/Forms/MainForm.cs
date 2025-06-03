@@ -1,5 +1,6 @@
 using FamilyTree.Forms;
 using FamilyTree.Models;
+using System.Windows.Forms;
 
 namespace FamilyTree
 {
@@ -108,7 +109,6 @@ namespace FamilyTree
                 newParent.AddChild(selectedPerson);
                 familyTree.AddMember(newParent);
                 DisplayTree(familyTree.GetRootMember());
-                newParent.GetPassportData();
             }
         }
 
@@ -128,7 +128,26 @@ namespace FamilyTree
                 newChild.AddParent(selectedPerson);
                 familyTree.AddMember(newChild);
                 DisplayTree(familyTree.GetRootMember());
-                newChild.GetPassportData();
+            }
+        }
+
+        private void addRootToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            using NewPersonForm form = new("Root");
+
+            if (familyTree == null)
+                familyTree = new FamilyTree.Models.FamilyTree();
+
+            if (familyTree.GetRootMember() != null)
+            {
+                MessageBox.Show("Root already exists!", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (form.ShowDialog() == DialogResult.OK && form.Person != null)
+            {
+                familyTree.AddMember(form.Person);
+                DisplayTree(familyTree.GetRootMember());
             }
         }
 

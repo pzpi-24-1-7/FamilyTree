@@ -73,6 +73,7 @@
             GetTree = new Button();
             GenerateTestData = new Button();
             GetPassportData = new Button();
+            addRootToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)personBindingSource).BeginInit();
             menuStrip1.SuspendLayout();
@@ -300,9 +301,9 @@
             // 
             // newToolStripMenuItem
             // 
-            newToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addChildToolStripMenuItem, addParentToolStripMenuItem });
+            newToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { addChildToolStripMenuItem, addParentToolStripMenuItem, addRootToolStripMenuItem });
             newToolStripMenuItem.Name = "newToolStripMenuItem";
-            newToolStripMenuItem.Size = new Size(136, 26);
+            newToolStripMenuItem.Size = new Size(224, 26);
             newToolStripMenuItem.Text = "New";
             // 
             // addChildToolStripMenuItem
@@ -439,6 +440,13 @@
             GetPassportData.UseVisualStyleBackColor = true;
             GetPassportData.Click += GetPassportData_Click;
             // 
+            // addRootToolStripMenuItem
+            // 
+            addRootToolStripMenuItem.Name = "addRootToolStripMenuItem";
+            addRootToolStripMenuItem.Size = new Size(224, 26);
+            addRootToolStripMenuItem.Text = "Add root";
+            addRootToolStripMenuItem.Click += addRootToolStripMenuItem_Click;
+            // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -511,5 +519,6 @@
         private ToolStripMenuItem addChildToolStripMenuItem;
         private ToolStripMenuItem addParentToolStripMenuItem;
         private Button GetPassportData;
+        private ToolStripMenuItem addRootToolStripMenuItem;
     }
 }
