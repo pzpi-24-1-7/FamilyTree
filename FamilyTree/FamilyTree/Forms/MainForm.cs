@@ -279,6 +279,11 @@ namespace FamilyTree
             {
                 person = selectedFromTree;
             }
+            else if(person == null)
+            {
+                MessageBox.Show("Please select a person from the list or tree to view passport data.");
+                return;
+            }
 
             string passportData = person.GetPassportData();
             MessageBox.Show(passportData, $"{person.FirstName} {person.LastName} - Passport Data", MessageBoxButtons.OK, MessageBoxIcon.Information);
